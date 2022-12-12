@@ -72,11 +72,11 @@ void I2C_vidInit(void)
 				{
 					LOC_u32CRRValue = 1;
 				}
-				I2C1_R->CCR.BIT.CCR	= LOC_u32CRRValue;
+				I2C1_R->CCR.BIT.CCR	= LOC_u32CRRValue /*0x140*/;
 			}
 			else{}
 			I2C_TRISE_CALC(LOC_strI2C.enuI2CFreq,LOC_u32TRISEValue);
-			I2C1_R->TRISE.BIT.TRISE	= LOC_u32TRISEValue;
+			I2C1_R->TRISE.BIT.TRISE	= LOC_u32TRISEValue /*0x21*/;
 		}
 		break;
 		case I2C_2 :
@@ -1345,7 +1345,7 @@ static void I2C_vidSendSlaveAddress(I2C_x Copy_enuI2C_x, u8 Copy_u8Address, I2C_
 		{
 		case I2C_MASTER_TRANS 	:
 			I2C1_R->DR.BIT.DR = I2C_WRITE(Copy_u8Address);
-			while(I2C1_R->SR1.BIT.ADDR == 0);
+//			while(I2C1_R->SR1.BIT.ADDR == 0);
 			LOC_u32Temp = I2C1_R->SR1.REGISTER;
 			LOC_u32Temp = I2C1_R->SR2.REGISTER;
 			break;

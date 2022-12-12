@@ -1,12 +1,12 @@
 /*
- * NVICK_interface.h
+ * NVIC_interface.h
  *
  *  Created on: Sep 7, 2022
  *      Author: Hosam
  */
 
-#ifndef NVICK_INTERFACE_H_
-#define NVICK_INTERFACE_H_
+#ifndef NVIC_INTERFACE_H_
+#define NVIC_INTERFACE_H_
 
 typedef enum{
 	XXXX = 0xFFFFF8FF,

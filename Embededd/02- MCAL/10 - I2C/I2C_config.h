@@ -8,7 +8,7 @@
 #ifndef I2C_CONFIG_H_
 #define I2C_CONFIG_H_
 
-#define NUM_OF_USED_I2C			2
+#define NUM_OF_USED_I2C			1
 
 #define	I2C_APB1_FREQ_IN_MHz	16
 

@@ -12,10 +12,6 @@
 #include "GPIO_config.h"
 #include "GPIO_private.h"
 
-#define PORTA			GPIOA_R
-#define PORTB          	GPIOB_R
-#define PORTC          	GPIOC_R
-
 #define FULL_HIGH		0xFFFF
 #define FULL_LOW		0x0000
 #define GPIO_NOT_USED	0xFF
@@ -24,7 +20,7 @@ typedef enum{
 	PORT_A			= (u8)0,
 	PORT_B,
 	PORT_C
-}PORTx;
+}PORT_x;
 
 typedef enum{
 	PIN0 			= (u8)0,
@@ -77,26 +73,26 @@ typedef enum{
 
 typedef enum
 {
-	AF0  			= (u8)0,
-	AF1,
-    AF2,
-    AF3,
-    AF4,
-    AF5,
-    AF6,
-    AF7,
-    AF8,
-    AF9,
-    AF10,
-    AF11,
-    AF12,
-    AF13,
-    AF14,
-    AF15,
+	AF_SYSTEM= 0 ,
+	AF_TIM1_2= 1 ,
+	AF_TIM3_5= 2 ,
+	AF_TIM9_11= 3 ,
+	AF_I2C1_3= 4 ,
+	AF_SPI1_4= 5 ,
+	AF_SPI3= 6 ,
+	AF_USART1_2= 7 ,
+	AF_USAART6= 8 ,
+	AF_I2C2_3= 9 ,
+	AF_OTG_FS =10,
+	AF_NF1 =11,
+	AF_SDIO =12,
+	AF_NF2 =13,
+	AF_NF3=14,
+	AF_EVENTOUT =15,
 }ALT_FUNC_SLCTION;
 
 typedef struct{
-	GPIOx_REGISTERS*	prtStrPORT;
+	PORT_x				PORT;
 	PINn 				PIN;
 	MODE_OF_PIN			MODE;
 	OUTPUT_TYPE			TYPE;
@@ -109,13 +105,13 @@ PIN_CONFIG	GLOB_prtStrPins[NUMBER_OF_USED_PINS];
 
 void GPIO_voidSetPinsConfig(void);
 
-void GPIO_voidSetPinValue(PORTx Copy_enumPort, PINn Copy_enumPin, PIN_VALUE Copy_enumValue);
-void GPIO_voidSetPinAtomicValue(PORTx Copy_enumPort, PINn Copy_enumPin, PIN_VALUE Copy_enumValue);
-u8   GPIO_u8GetPinValue(PORTx Copy_enumPort, PINn Copy_enumPin);
+void GPIO_voidSetPinValue(PORT_x Copy_enuPORT_x, PINn Copy_enuPINn, PIN_VALUE Copy_enumValue);
+void GPIO_voidSetPinAtomicValue(PORT_x Copy_enuPORT_x, PINn Copy_enuPINn, PIN_VALUE Copy_enumValue);
+u8   GPIO_u8GetPinValue(PORT_x Copy_enuPORT_x, PINn Copy_enuPINn);
 
-void GPIO_voidSetPortValue(PORTx Copy_enumPort, u16 Copy_u16PortValue);
-void GPIO_voidSetPortAtomicValue(PORTx Copy_enumPort, u16 Copy_u16PortValue);
-u32  GPIO_u32GetPortValue(PORTx Copy_enumPort);
+void GPIO_voidSetPortValue(PORT_x Copy_enuPORT_x, u16 Copy_u16PortValue);
+void GPIO_voidSetPortAtomicValue(PORT_x Copy_enuPORT_x, u16 Copy_u16PortValue);
+u32  GPIO_u32GetPortValue(PORT_x Copy_enuPORT_x);
 
 
 

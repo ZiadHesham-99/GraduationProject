@@ -1,12 +1,12 @@
 /*
- * NVICK_private.h
+ * NVIC_private.h
  *
  *  Created on: Sep 7, 2022
  *      Author: Hosam
  */
 
-#ifndef NVICK_PRIVATE_H_
-#define NVICK_PRIVATE_H_
+#ifndef NVIC_PRIVATE_H_
+#define NVIC_PRIVATE_H_
 
 typedef struct{
 	u32 ISER[8];

@@ -1,5 +1,5 @@
 /*
- * NVICK_program.c
+ * NVIC_program.c
  *
  *  Created on: Sep 7, 2022
  *      Author: Hosam
@@ -10,12 +10,12 @@
 #include "../../01- LIB/01- TYPES/STD_TYPES.h"
 #include "../../01- LIB/02- BIT_MATH/BIT_MATH.h"
 
-#include "NVICK_private.h"
-#include "NVICK_config.h"
-#include "NVICK_interface.h"
+#include "NVIC_config.h"
+#include "NVIC_interface.h"
+#include "NVIC_private.h"
 
 void NVIC_voidGroupSubPriority(void){
-	AIRCR_REG = NVICK_GROUP_SUB_PRIORITY_MODE;
+	AIRCR_REG = NVIC_GROUP_SUB_PRIORITY_MODE;
 }
 
 void NVIC_voidSetPrioritySoftware(STM_PERIPHERAL Copy_enumPeripheralName, u8 Copy_u8Priority){

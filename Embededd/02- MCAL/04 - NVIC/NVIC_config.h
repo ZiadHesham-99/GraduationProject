@@ -1,12 +1,12 @@
 /*
- * NVICK_config.h
+ * NVIC_config.h
  *
  *  Created on: Sep 7, 2022
  *      Author: Hosam
  */
 
-#ifndef NVICK_CONFIG_H_
-#define NVICK_CONFIG_H_
+#ifndef NVIC_CONFIG_H_
+#define NVIC_CONFIG_H_
 
 /*
  * GROUP SUB PRIORITYMODE:
@@ -17,7 +17,7 @@
  * 	YYYY
  */
 
-#define NVICK_GROUP_SUB_PRIORITY_MODE	XXXY
+#define NVIC_GROUP_SUB_PRIORITY_MODE	XXXY
 
 
 #endif
