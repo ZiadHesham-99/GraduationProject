@@ -238,3 +238,84 @@ u32 GPIO_u32GetPortValue(PORT_x Copy_enuPORT_x)
 	}
 	return Local_u32PortValue;
 }
+
+
+void GPIO_vidSetPinDirection(PORT_x Copy_enuPORT_x, PINn Copy_enuPINn, MODE_OF_PIN Copy_enuMode)
+{
+	switch(Copy_enuPORT_x)
+	{
+	case PORT_A:
+	{
+		CLR_TWO_BITS(GPIOA_R->MODER, Copy_enuPINn);
+		GPIOA_R->MODER |= (Copy_enuMode<< (Copy_enuPINn * 2));
+		switch(Copy_enuMode)
+		{
+		case INPUT:
+		{
+			CLR_TWO_BITS(GPIOA_R->PUPDR, Copy_enuPINn);
+			GPIOA_R->PUPDR |= (NO_PULL_UP_DOWN << (Copy_enuPINn * 2));
+		}
+		break;
+		case OUTPUT:
+		{
+			CLR_BIT(GPIOA_R->OTYPER, Copy_enuPINn);
+			GPIOA_R->OTYPER |= (PUSH_PULL << Copy_enuPINn);
+			CLR_TWO_BITS(GPIOA_R->OSPEEDR, Copy_enuPINn);
+			GPIOA_R->OSPEEDR |= (NORMAL << (Copy_enuPINn * 2));
+		}
+		break;
+		default : break;
+		}//end of switch
+	}
+	break;
+	case PORT_B:
+	{
+		CLR_TWO_BITS(GPIOB_R->MODER, Copy_enuPINn);
+		GPIOB_R->MODER |= (Copy_enuMode << (Copy_enuPINn * 2));
+		switch(Copy_enuMode)
+		{
+		case INPUT:
+		{
+			CLR_TWO_BITS(GPIOB_R->PUPDR, Copy_enuPINn);
+			GPIOB_R->PUPDR |= (NO_PULL_UP_DOWN << (Copy_enuPINn * 2));
+		}
+		break;
+		case OUTPUT:
+		{
+			CLR_BIT(GPIOB_R->OTYPER, Copy_enuPINn);
+			GPIOB_R->OTYPER |= (PUSH_PULL << Copy_enuPINn);
+			CLR_TWO_BITS(GPIOB_R->OSPEEDR, Copy_enuPINn);
+			GPIOB_R->OSPEEDR |= (NORMAL << (Copy_enuPINn * 2));
+		}
+		break;
+		default : break;
+		}//end of switch
+	}
+	break;
+	case PORT_C:
+	{
+		CLR_TWO_BITS(GPIOC_R->MODER, Copy_enuPINn);
+		GPIOC_R->MODER |= (Copy_enuMode << (Copy_enuPINn * 2));
+		switch(Copy_enuMode)
+		{
+		case INPUT:
+		{
+			CLR_TWO_BITS(GPIOC_R->PUPDR, Copy_enuPINn);
+			GPIOC_R->PUPDR |= (NO_PULL_UP_DOWN << (Copy_enuPINn * 2));
+		}
+		break;
+		case OUTPUT:
+		{
+			CLR_BIT(GPIOC_R->OTYPER, Copy_enuPINn);
+			GPIOC_R->OTYPER |= (PUSH_PULL << Copy_enuPINn);
+			CLR_TWO_BITS(GPIOC_R->OSPEEDR, Copy_enuPINn);
+			GPIOC_R->OSPEEDR |= (NORMAL << (Copy_enuPINn * 2));
+		}
+		break;
+		default : break;
+		}//end of switch
+	}
+	break;
+	default : break;
+	}//end of switch case
+}

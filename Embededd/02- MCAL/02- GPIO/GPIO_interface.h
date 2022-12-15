@@ -113,6 +113,6 @@ void GPIO_voidSetPortValue(PORT_x Copy_enuPORT_x, u16 Copy_u16PortValue);
 void GPIO_voidSetPortAtomicValue(PORT_x Copy_enuPORT_x, u16 Copy_u16PortValue);
 u32  GPIO_u32GetPortValue(PORT_x Copy_enuPORT_x);
 
-
+void GPIO_vidSetPinDirection(PORT_x Copy_enuPORT_x, PINn Copy_enuPINn, MODE_OF_PIN Copy_enuMode);
 
 #endif
