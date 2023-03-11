@@ -1,0 +1,33 @@
+{
+    "files.associations": {
+        "i2c_interface.h": "c",
+        "std_types.h": "c",
+        "timer_interface.h": "c",
+        "sensing.h": "c",
+        "adc_interface.h": "c",
+        "gpio_config.h": "c",
+        "rcc_interface.h": "c",
+        "bit_math.h": "c",
+        "serialcommunication.h": "c",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "bit": "c",
+        "compare": "c",
+        "cstddef": "c",
+        "iterator": "c",
+        "limits": "c",
+        "memory": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "xiosbase": "c",
+        "xlocale": "c",
+        "xutility": "c",
+        "spi_interface.h": "c",
+        "uart_interface.h": "c",
+        "uart_config.h": "c",
+        "communication.h": "c",
+        "adc_config.h": "c",
+        "i2c_private.h": "c",
+        "gpio_interface.h": "c"
+    }
+}
