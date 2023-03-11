@@ -17,14 +17,6 @@
 #define	TEMPERATURE_PORT			PORT_A
 #define	TEMPERATURE_PIN				PIN1
 
-#define	_200PPM						(u16)200
-#define	_400PPM						(u16)400
-#define	_600PPM						(u16)600
-
-#define	ZERO_PERCEN_CO				_200PPM
-#define	_50_PERCEN_CO				_5100PPM
-#define CO_APPEARENCE				_600PPM
-
 #define	MPU6050_ADDRESS_AD0_GND		(0xD0)
 #define	MPU6050_ADDRESS_AD0_HIGH	(0xD2)
 #define	MPU6050_ADDRESS_7_BITS		(0x68)
@@ -55,7 +47,7 @@ typedef enum
 
 void SEN_vidInit(void);
 void SEN_vidUpdateSensorsData(void);
-u16	 SEN_u16GetGasSensor(void);
+u8	 SEN_u8GetGasPercentage(void);
 void SEN_vidGetGyroAccel(f32 * buffer);
 
 static void SEN_vidStartDHT(void);

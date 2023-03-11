@@ -7,20 +7,21 @@
 
 #include "HAL/Sensing.h"
 
-static u16 GLOB_u16TemperatureDegree;
-static u16 GLOB_u16GasVoltage;
+static u8 GLOB_u8GasPercentage;
 
-static f32 GLOB_f32AccelX;
-static f32 GLOB_f32AccelY;
-static f32 GLOB_f32AccelZ;
+static u16 GLOB_u16TemperatureDegree;
+
 static f32 GLOB_f32GyroX;
 static f32 GLOB_f32GyroY;
 static f32 GLOB_f32GyroZ;
+static f32 GLOB_f32AccelX;
+static f32 GLOB_f32AccelY;
+static f32 GLOB_f32AccelZ;
 
 
 void SEN_vidInit(void)
 {
-	GLOB_u16GasVoltage			= 0;
+	GLOB_u8GasPercentage		= 0;
 	GLOB_u16TemperatureDegree	= 0;
 	GLOB_f32AccelX				= 0;
 	GLOB_f32AccelY				= 0;
@@ -37,7 +38,7 @@ void SEN_vidUpdateSensorsData(void)
 	u8 LOC_u8Byte1 = 0;
 	u8 LOC_u8Byte2 = 0;
 
-	GLOB_u16GasVoltage = ADC_u16GetADCValue();
+	GLOB_u8GasPercentage = ((u8)(ADC_u16GetADCValue()/41));
 
 	SEN_vidReadAccel();
 	SEN_vidReadGyro();
@@ -62,9 +63,9 @@ void SEN_vidUpdateSensorsData(void)
 	//}
 }
 
-u16	 SEN_u16GetGasSensor(void)
+u8 SEN_u8GetGasPercentage(void)
 { 
-	return GLOB_u16GasVoltage;
+	return GLOB_u8GasPercentage;
 }
 
 void SEN_vidGetGyroAccel(f32 * buffer)
@@ -136,6 +137,7 @@ static u8 SEN_u8ReadTemperature(void)
 
 	return LOC_u8Byte;
 }
+
 
 static void SEN_vidMPU6050Init(void)
 {

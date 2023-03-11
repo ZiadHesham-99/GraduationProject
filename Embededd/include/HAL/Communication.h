@@ -9,7 +9,22 @@
 #define COMMUNICATION_H_
 
 
-void vidToString(s16 Copy_s16Num, u8 Copy_u8DigitsNum, u8 * Copy_pu8Bffr);
-s16  s16ToInteger(u8 * Copy_pu8Bffr, u8 Copy_u8DigitsNum);
+typedef struct
+{
+    u8 u8GasPercentage;
+
+    s8 s8GyroX;
+    s8 s8GyroY;
+    s8 s8GyroZ;
+    s16 s16AccelX;
+    s16 s16AccelY;
+    s16 s16AccelZ;
+
+}tstrRaspberryPiMsg;
+
+void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg);
+
+static void vidToString(s32 Copy_s32Num, u8 Copy_u8DigitsNum, u8 * Copy_pu8Bffr);
+static s32  s32ToInteger(u8 * Copy_pu8Bffr, u8 Copy_u8DigitsNum);
 
 #endif  
