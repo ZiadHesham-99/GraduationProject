@@ -43,7 +43,8 @@ void main(void)
 	while(1)
 	{
 		//SEN_vidUpdateSensorsData();
-
+	/*
+	ssss*/
 
 	}
 }
