@@ -12,13 +12,13 @@
 typedef struct
 {
     u8 u8GasPercentage;
-
     s8 s8GyroX;
     s8 s8GyroY;
     s8 s8GyroZ;
     s16 s16AccelX;
     s16 s16AccelY;
     s16 s16AccelZ;
+    u16 u8Temperatue;
 
 }tstrRaspberryPiMsg;
 

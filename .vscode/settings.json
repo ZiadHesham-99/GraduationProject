@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "dataacquisition.h": "c",
-        "communication.h": "c"
+        "communication.h": "c",
+        "adc_interface.h": "c",
+        "adc_config.h": "c",
+        "sensing.h": "c",
+        "timer_interface.h": "c"
     }
 }
