@@ -8,7 +8,7 @@
 #ifndef ADC_PRIVATE_H_
 #define ADC_PRIVATE_H_
 
-#include "ADC_interface.h"
+#include "MCAL/ADC_interface.h"
 
 typedef struct
 {

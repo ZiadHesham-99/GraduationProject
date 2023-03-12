@@ -48,6 +48,7 @@ typedef enum
 void SEN_vidInit(void);
 void SEN_vidUpdateSensorsData(void);
 u8	 SEN_u8GetGasPercentage(void);
+u16 SEN_u16GetTemperature(void);
 void SEN_vidGetGyroAccel(f32 * buffer);
 
 static void SEN_vidStartDHT(void);
