@@ -11,8 +11,8 @@
 #include "LIB/STD_TYPES.h"
 #include "LIB/BIT_MATH.h"
 
-#include "ADC_private.h"
-#include "ADC_config.h"
+#include "MCAL/ADC_private.h"
+#include "MCAL/ADC_config.h"
 
 typedef enum
 {
@@ -35,7 +35,7 @@ typedef enum
 	CHANNEL16_ADC,
 	CHANNEL17_ADC,
 	CHANNEL18_ADC
-}ADC_CHANNEL_NUM;
+}tenmChannelNumADC;
 
 typedef enum
 {
@@ -43,13 +43,13 @@ typedef enum
 	_10_BITS_ADC,
 	_8_BITS_ADC,
 	_6_BITS_ADC,
-}ADC_RES;
+}tenmResolutionADC;
 
 typedef enum
 {
 	RIGHT_ALIGNMENT	= (u8)0,
 	LEFT_ALIGNMENT
-}ADC_ALIGN;
+}tenmAlignmentTypeADC;
 
 typedef enum
 {
@@ -61,7 +61,7 @@ typedef enum
     _112_CYCLES,
     _114_CYCLES,
     _480_CYCLES,
-}ADC_SAMP_TIME;
+}tenmSampleTimeADC;
 
 typedef enum
 {
@@ -69,13 +69,22 @@ typedef enum
 	_4_PRESCALER,
 	_6_PRESCALER,
 	_8_PRESCALER,
-}ADC_PRE;
+}tenmPrescalerADC;
 
 
-void ADC_vidInit(void);
-u16  ADC_u16GetADCValue(void);
+typedef struct
+{
+	tenmChannelNumADC 		enmChannelNum;
+	tenmResolutionADC		enmResolution;
+	tenmAlignmentTypeADC	enmAlignment;
+	tenmSampleTimeADC		enmSampleTime;	
+	tenmPrescalerADC		enmPrescaler;
+}tstrADCConfig;
 
-static void ADC_vidHandleData(ADC_ALIGN Copy_enuAlignment, u16 * Copy_ptrU16Buffer);
+void ADC_vidInit(tstrADCConfig Copy_strConfig);
+u16 ADC_u16GetADCValue(tenmChannelNumADC Copy_enmChannel);
+
+static void ADC_vidHandleData(tenmAlignmentTypeADC Copy_enmAlignment, u16 * Copy_pu16Buffer, tenmResolutionADC Copy_enmResolution);
 
 
 #endif

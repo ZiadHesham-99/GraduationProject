@@ -12,9 +12,11 @@
 #include "MCAL/I2C_config.h"
 #include "MCAL/I2C_interface.h"
 
-I2C_CONFIG	GLOB_ptrStrI2C[NUM_OF_USED_I2C] = {
-		[0] = {
-				.I2C_x 					= I2C_1,
+I2C_CONFIG	GLOB_ptrStrI2C[NUM_OF_USED_I2C] = 
+{
+		[0] = 
+		{
+				.I2C_x 					= I2C_2,
 				.enuAddressingMode		= _7BITS_I2C,
 				.enuDualAddress			= DISABLE_I2C_DUAL_ADD,
 				.enuI2CMode				= STANDARD_MODE_I2C,
@@ -23,8 +25,9 @@ I2C_CONFIG	GLOB_ptrStrI2C[NUM_OF_USED_I2C] = {
 				.u16SlaveAddress1		= 0x70,
 				.u8SlaveAddress2		= (u8)(~I2C_NOT_USED)
 		},
-		[1] = {
-				.I2C_x 					= I2C_2,
+		[1] = 
+		{
+				.I2C_x 					= I2C_1,
 				.enuAddressingMode		= _7BITS_I2C,
 				.enuDualAddress			= DISABLE_I2C_DUAL_ADD,
 				.enuI2CMode				= FAST_MODE_I2C,

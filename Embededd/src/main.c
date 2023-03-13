@@ -11,13 +11,15 @@
 #include "MCAL/ADC_interface.h"
 #include "MCAL/I2C_interface.h"
 #include "MCAL/UART_interface.h"
+#include "MCAL/TIMER_interface.h"
 
 
 #include "HAL/Sensing.h"
 
+#include "APP/DataAcquisition.h"
+
 void main(void)
 {
-
 
 	RCC_voidInit();
 
@@ -25,26 +27,25 @@ void main(void)
 	RCC_voidEnablePeripheralClock(GPIOB);
 	RCC_voidEnablePeripheralClock(ADC1);
 	RCC_voidEnablePeripheralClock(I2C1);
-	RCC_voidEnablePeripheralClock(USART1);
+	RCC_voidEnablePeripheralClock(I2C2);
+	RCC_voidEnablePeripheralClock(TIMER10);
+	RCC_voidEnablePeripheralClock(TIMER11);
 
 	GPIO_voidSetPinsConfig();
 
-	//ADC_vidInit();
+	TIM_vidInit();
 	I2C_vidInit();
 	UART_vidInit();
 
-	//u8 counter = 0;
-	u8 buffer[2] = {0};
-	I2C_vidSlaveRX(I2C_1,buffer,2);
+	SEN_vidInit();
 
-	UART_vidTransmitChar((buffer[0]+0x30));
-	UART_vidTransmitChar((buffer[1]+0x30));
+	DAQ_vidInit();
+
 
 	while(1)
 	{
-		//SEN_vidUpdateSensorsData();
-	/*
-	ssss*/
+
+		DAQ_vidCollectData();
 
 	}
 }
