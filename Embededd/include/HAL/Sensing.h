@@ -8,6 +8,9 @@
 #define	SENSING_H
 
 #include "LIB/STD_TYPES.h"
+
+#include "SERVICES/Delay.h"
+
 #include "MCAL/ADC_interface.h"
 #include "MCAL/GPIO_interface.h"
 #include "MCAL/TIMER_interface.h"
@@ -48,7 +51,9 @@ typedef enum
 void SEN_vidInit(void);
 void SEN_vidUpdateSensorsData(void);
 u8	 SEN_u8GetGasPercentage(void);
+u16 SEN_u16GetTemperature(void);
 void SEN_vidGetGyroAccel(f32 * buffer);
+PIN_VALUE SEN_enmGetPushButton(void);
 
 static void SEN_vidStartDHT(void);
 static u8 SEN_u8ReadTemperature(void);

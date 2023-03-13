@@ -9,7 +9,7 @@
 
 static u8 GLOB_u8GasPercentage;
 
-static u16 GLOB_u16TemperatureDegree;
+static u16 LOC_u16TemperatureDegree;
 
 static f32 GLOB_f32GyroX;
 static f32 GLOB_f32GyroY;
@@ -17,18 +17,31 @@ static f32 GLOB_f32GyroZ;
 static f32 GLOB_f32AccelX;
 static f32 GLOB_f32AccelY;
 static f32 GLOB_f32AccelZ;
-
+static tstrADCConfig	LOC_strADCConfigMQ7;
+static tstrADCConfig	LOC_strADCConfigLM35;
 
 void SEN_vidInit(void)
 {
 	GLOB_u8GasPercentage		= 0;
-	GLOB_u16TemperatureDegree	= 0;
+	LOC_u16TemperatureDegree 	= 0;
 	GLOB_f32AccelX				= 0;
 	GLOB_f32AccelY				= 0;
 	GLOB_f32AccelZ				= 0;
 	GLOB_f32GyroX				= 0;
 	GLOB_f32GyroY				= 0;
 	GLOB_f32GyroZ				= 0;
+
+	LOC_strADCConfigMQ7.enmAlignment = RIGHT_ALIGNMENT;
+	LOC_strADCConfigMQ7.enmChannelNum	= CHANNEL0_ADC;
+	LOC_strADCConfigMQ7.enmPrescaler	= _2_PRESCALER;
+	LOC_strADCConfigMQ7.enmResolution	= _12_BITS_ADC;
+	LOC_strADCConfigMQ7.enmSampleTime  = _15_CYCLES;
+
+	LOC_strADCConfigLM35.enmAlignment 	= RIGHT_ALIGNMENT;
+	LOC_strADCConfigLM35.enmChannelNum  = CHANNEL1_ADC;
+	LOC_strADCConfigLM35.enmPrescaler	= _4_PRESCALER;
+	LOC_strADCConfigLM35.enmResolution  = _12_BITS_ADC;
+	LOC_strADCConfigLM35.enmSampleTime  = _480_CYCLES;
 
 	SEN_vidMPU6050Init();
 }
@@ -38,7 +51,11 @@ void SEN_vidUpdateSensorsData(void)
 	u8 LOC_u8Byte1 = 0;
 	u8 LOC_u8Byte2 = 0;
 
-	GLOB_u8GasPercentage = ((u8)(ADC_u16GetADCValue()/41));
+	ADC_vidInit(LOC_strADCConfigMQ7);
+	GLOB_u8GasPercentage = ((u8)(ADC_u16GetADCValue(CHANNEL0_ADC)/41));
+
+	ADC_vidInit(LOC_strADCConfigLM35);
+	LOC_u16TemperatureDegree = ADC_u16GetADCValue(CHANNEL1_ADC);
 
 	SEN_vidReadAccel();
 	SEN_vidReadGyro();
@@ -68,6 +85,11 @@ u8 SEN_u8GetGasPercentage(void)
 	return GLOB_u8GasPercentage;
 }
 
+u16 SEN_u16GetTemperature(void)
+{
+	return LOC_u16TemperatureDegree;
+}
+
 void SEN_vidGetGyroAccel(f32 * buffer)
 {
 	buffer[0] = GLOB_f32AccelX;
@@ -77,6 +99,12 @@ void SEN_vidGetGyroAccel(f32 * buffer)
 	buffer[4] = GLOB_f32GyroY;
 	buffer[5] = GLOB_f32GyroZ;
 
+}
+
+PIN_VALUE SEN_enmGetPushButton(void)
+{
+	Delay_us(50);
+	return GPIO_u8GetPinValue(PORT_A, PIN10);
 }
 
 static void SEN_vidStartDHT(void)
