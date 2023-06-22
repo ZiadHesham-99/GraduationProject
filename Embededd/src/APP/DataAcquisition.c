@@ -15,7 +15,7 @@
 #include "APP/DataAcquisition.h"
 
 static tstrRaspberryPiMsg LOC_strMsg;
-/*ana tareeeeeeeeeeeeeeeek */
+/*ana tareeeeeeek */
 void DAQ_vidInit(void)
 {
     LOC_strMsg.s8GyroX = 0;
