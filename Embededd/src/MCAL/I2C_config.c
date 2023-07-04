@@ -23,7 +23,7 @@ I2C_CONFIG	GLOB_ptrStrI2C[NUM_OF_USED_I2C] =
 				.enuDutyCycle			= STANDARD_MODE_DUTY,
 				.enuI2CFreq				= _100KHz,
 				.u16SlaveAddress1		= 0x70,
-				.u8SlaveAddress2		= (u8)(~I2C_NOT_USED)
+				.u8SlaveAddress2		= (~I2C_NOT_USED)
 		},
 		[1] = 
 		{
@@ -34,6 +34,6 @@ I2C_CONFIG	GLOB_ptrStrI2C[NUM_OF_USED_I2C] =
 				.enuDutyCycle			= FM_MODE_DUTY_1_2,
 				.enuI2CFreq				= _400KHz,
 				.u16SlaveAddress1		= 0x00,
-				.u8SlaveAddress2		= (u8)(~I2C_NOT_USED)
+				.u8SlaveAddress2		= (~I2C_NOT_USED)
 		},
 };

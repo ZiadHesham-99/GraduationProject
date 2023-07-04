@@ -56,12 +56,10 @@ u16 ADC_u16GetADCValue(tenmChannelNumADC Copy_enmChannel)
 
 	// Start ADC Conversion
 	ADC_R->CR2.BIT.SWSTART = 1;
-	while (ADC_R->SR.BIT.STRT == 0)
-		;
+	while (ADC_R->SR.BIT.STRT == 0);
 
 	// Wait Until Conversion Completed
-	while (ADC_R->SR.BIT.EOC == 0)
-		;
+	while (ADC_R->SR.BIT.EOC == 0);
 
 	ADC_R->CR2.BIT.SWSTART = 0;
 	ADC_R->SR.BIT.STRT = 0;

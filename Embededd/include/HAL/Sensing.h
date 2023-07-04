@@ -26,18 +26,6 @@
 
 typedef enum
 {
-	GAS_SENSOR = (u8)0,
-	TEMPERATURE_SENSOR
-}SENSOR_TYPE;
-
-typedef enum
-{
-	TEMP_SEN_ERROR = (u8)0,
-	TEMP_SEN_OK
-}TEMPERATURE_SENSOR_RESPONSE;
-
-typedef enum
-{
 	SMPLRT_DIV		= 0x19,
 	GYRO_CONFIG		= 0x1B,
 	ACCEL_CONFIG	= 0x1C,
@@ -50,14 +38,14 @@ typedef enum
 
 void SEN_vidInit(void);
 void SEN_vidUpdateSensorsData(void);
+void SEN_vidUpdateEncoders(void);
+
+u32 SEN_u8GetLeftMotorRPM(void);
+u32 SEN_u8GetRightMotorRPM(void);
 u8	 SEN_u8GetGasPercentage(void);
 u16 SEN_u16GetTemperature(void);
 void SEN_vidGetGyroAccel(f32 * buffer);
 PIN_VALUE SEN_enmGetPushButton(void);
-
-static void SEN_vidStartDHT(void);
-static u8 SEN_u8ReadTemperature(void);
-static TEMPERATURE_SENSOR_RESPONSE SEN_vidCheckDHTResponse(void);
 
 static void SEN_vidMPU6050Init(void);
 static void SEN_vidReadAccel(void);

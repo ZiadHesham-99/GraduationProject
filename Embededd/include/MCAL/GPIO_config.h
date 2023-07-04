@@ -8,6 +8,6 @@
 #ifndef	GPIO_CONFIG_H
 #define	GPIO_CONFIG_H
 
-#define NUMBER_OF_USED_PINS		7
+#define NUMBER_OF_USED_PINS		12
 
 #endif

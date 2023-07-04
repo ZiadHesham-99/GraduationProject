@@ -19,6 +19,8 @@ static f32 GLOB_f32AccelY;
 static f32 GLOB_f32AccelZ;
 static tstrADCConfig	LOC_strADCConfigMQ7;
 static tstrADCConfig	LOC_strADCConfigLM35;
+static u32	LOC_u32LeftMotorRPM;
+static u32	LOC_u32RightMotorRPM;
 
 void SEN_vidInit(void)
 {
@@ -30,6 +32,8 @@ void SEN_vidInit(void)
 	GLOB_f32GyroX				= 0;
 	GLOB_f32GyroY				= 0;
 	GLOB_f32GyroZ				= 0;
+	LOC_u32LeftMotorRPM			= 0;
+	LOC_u32RightMotorRPM		= 0;
 
 	LOC_strADCConfigMQ7.enmAlignment = RIGHT_ALIGNMENT;
 	LOC_strADCConfigMQ7.enmChannelNum	= CHANNEL0_ADC;
@@ -43,13 +47,14 @@ void SEN_vidInit(void)
 	LOC_strADCConfigLM35.enmResolution  = _12_BITS_ADC;
 	LOC_strADCConfigLM35.enmSampleTime  = _480_CYCLES;
 
+	TIM_vidICStart(TIM_3, TIM_CHANNEL1);
+	TIM_vidICStart(TIM_3, TIM_CHANNEL2);
+
 	SEN_vidMPU6050Init();
 }
 
 void SEN_vidUpdateSensorsData(void)
 {
-	u8 LOC_u8Byte1 = 0;
-	u8 LOC_u8Byte2 = 0;
 
 	ADC_vidInit(LOC_strADCConfigMQ7);
 	GLOB_u8GasPercentage = ((u8)(ADC_u16GetADCValue(CHANNEL0_ADC)/41));
@@ -59,25 +64,36 @@ void SEN_vidUpdateSensorsData(void)
 
 	SEN_vidReadAccel();
 	SEN_vidReadGyro();
+}
 
-	//Sequence to read the temperature sensor.
-	//SEN_vidStartDHT();
-	//switch(SEN_vidCheckDHTResponse())
-	//{
-	//case TEMP_SEN_OK:
-	//{
-	//	SEN_u8ReadTemperature();
-	//	SEN_u8ReadTemperature();
-	//	LOC_u8Byte1 = SEN_u8ReadTemperature();
-	//	LOC_u8Byte2 = SEN_u8ReadTemperature();
-	//	GLOB_u16TemperatureDegree =  ((LOC_u8Byte1<<8) | LOC_u8Byte2);
-	//	GLOB_u16TemperatureDegree /= 10;
-	//}
-	//break;
-	//case TEMP_SEN_ERROR:
-	//	GLOB_u16TemperatureDegree = 0;
-	//	break;
-	//}
+void SEN_vidUpdateEncoders(void)
+{
+	u32 u32Raising1 = 0; 
+	u32 u32Raising2 = 0;
+	u32 u32TotalTick = 0;
+	f64 f64Temp = 0.0;
+
+	u32Raising1 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL1);
+	u32Raising2 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL1);
+	u32TotalTick = u32Raising2 - u32Raising1;
+	f64Temp = (0.0000191733 * u32TotalTick * u32TotalTick) - (0.309905 * u32TotalTick) + 1174.13;
+	LOC_u32LeftMotorRPM = (u32)f64Temp;
+
+	u32Raising1 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL2);
+	u32Raising2 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL2);
+	u32TotalTick = u32Raising2 - u32Raising1;
+	f64Temp = (0.0000191733 * u32TotalTick * u32TotalTick) - (0.309905 * u32TotalTick) + 1174.13;
+	LOC_u32RightMotorRPM = (u32)f64Temp;
+}
+
+u32 SEN_u8GetLeftMotorRPM(void)
+{
+	return (u8)LOC_u32LeftMotorRPM;
+}
+
+u32 SEN_u8GetRightMotorRPM(void)
+{
+	return (u8)LOC_u32RightMotorRPM;
 }
 
 u8 SEN_u8GetGasPercentage(void)
@@ -106,66 +122,6 @@ PIN_VALUE SEN_enmGetPushButton(void)
 	Delay_us(50);
 	return GPIO_u8GetPinValue(PORT_A, PIN10);
 }
-
-static void SEN_vidStartDHT(void)
-{
-	GPIO_vidSetPinDirection(TEMPERATURE_PORT, TEMPERATURE_PIN, OUTPUT);
-	GPIO_voidSetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN, LOW);
-	TIM_vidDelayms(TIM_2, 18);
-	GPIO_vidSetPinDirection(TEMPERATURE_PORT, TEMPERATURE_PIN, INPUT);
-}
-
-static TEMPERATURE_SENSOR_RESPONSE SEN_vidCheckDHTResponse(void)
-{
-	TEMPERATURE_SENSOR_RESPONSE LOC_enuRespone = TEMP_SEN_ERROR;
-
-	TIM_vidDelayus(TIM_2, 40);
-
-	if(LOW == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN))
-	{
-		TIM_vidDelayus(TIM_2, 80);
-
-		if(HIGH == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN))
-		{
-			LOC_enuRespone = TEMP_SEN_OK;
-		}
-		else
-		{
-			LOC_enuRespone = TEMP_SEN_ERROR;
-		}
-	}
-	else
-	{
-	}
-	while(HIGH == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN));
-	return LOC_enuRespone;
-}
-
-static u8 SEN_u8ReadTemperature(void)
-{
-	u8 LOC_u8Byte 	= 0;
-	u8 LOC_u8BitNum	= 0;
-
-	for(; LOC_u8BitNum < 8; LOC_u8BitNum++)
-	{
-		while(LOW == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN));
-
-		TIM_vidDelayus(TIM_2, 40);
-
-		if(HIGH == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN))
-		{
-			SET_BIT(LOC_u8Byte, LOC_u8BitNum);
-		}
-		else
-		{
-			CLR_BIT(LOC_u8Byte, LOC_u8BitNum);
-		}
-		while(HIGH == GPIO_u8GetPinValue(TEMPERATURE_PORT, TEMPERATURE_PIN));
-	}
-
-	return LOC_u8Byte;
-}
-
 
 static void SEN_vidMPU6050Init(void)
 {

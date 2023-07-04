@@ -12,7 +12,6 @@
 #include "MCAL/TIMER_config.h"
 #include "MCAL/TIMER_private.h"
 
-// static u32 GLOB_u32CRRx;
 
 /*
  * switch(LOC_strTemp.enuTIM_x)
@@ -1059,10 +1058,8 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 			break;
 
 		case TIM_CHANNEL4:
-			while (FALSE == TIM1_R->SR.BIT.CC4IF)
-				;
-			while (TRUE == TIM1_R->SR.BIT.CC4OF)
-				;
+			while (FALSE == TIM1_R->SR.BIT.CC4IF);
+			while (TRUE == TIM1_R->SR.BIT.CC4OF);
 			LOC_u32CapturedValue = (u32)(TIM1_R->CCR4.BIT.CCR4);
 			TIM1_R->SR.BIT.CC4IF = FALSE;
 			TIM1_R->SR.BIT.CC4OF = FALSE;
@@ -1075,39 +1072,32 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 		switch (Copy_enmChannel)
 		{
 		case TIM_CHANNEL1:
-			while (FALSE == TIM2_R->SR.BIT.CC1IF)
-				;
-			while (TRUE == TIM2_R->SR.BIT.CC1OF)
-				;
+			while (FALSE == TIM2_R->SR.BIT.CC1IF);
+			while (TRUE == TIM2_R->SR.BIT.CC1OF);
 			LOC_u32CapturedValue = (u32)(TIM2_R->CCR1.REGISTER);
 			TIM2_R->SR.BIT.CC1IF = FALSE;
 			TIM2_R->SR.BIT.CC1OF = FALSE;
 			break;
 
 		case TIM_CHANNEL2:
-			while (FALSE == TIM2_R->SR.BIT.CC2IF)
-				;
-			//while (TRUE == TIM2_R->SR.BIT.CC2OF);
+			while (FALSE == TIM2_R->SR.BIT.CC2IF);
+			while (TRUE == TIM2_R->SR.BIT.CC2OF);
 			LOC_u32CapturedValue = (u32)(TIM2_R->CCR2.REGISTER);
 			TIM2_R->SR.BIT.CC2IF = FALSE;
 			TIM2_R->SR.BIT.CC2OF = FALSE;
 			break;
 
 		case TIM_CHANNEL3:
-			while (FALSE == TIM2_R->SR.BIT.CC3IF)
-				;
-			while (TRUE == TIM2_R->SR.BIT.CC3OF)
-				;
+			while (FALSE == TIM2_R->SR.BIT.CC3IF);
+			while (TRUE == TIM2_R->SR.BIT.CC3OF);
 			LOC_u32CapturedValue = (u32)(TIM2_R->CCR3.REGISTER);
 			TIM2_R->SR.BIT.CC3IF = FALSE;
 			TIM2_R->SR.BIT.CC3OF = FALSE;
 			break;
 
 		case TIM_CHANNEL4:
-			while (FALSE == TIM2_R->SR.BIT.CC4IF)
-				;
-			while (TRUE == TIM2_R->SR.BIT.CC4OF)
-				;
+			while (FALSE == TIM2_R->SR.BIT.CC4IF);
+			while (TRUE == TIM2_R->SR.BIT.CC4OF);
 			LOC_u32CapturedValue = (u32)(TIM2_R->CCR4.REGISTER);
 			TIM2_R->SR.BIT.CC4IF = FALSE;
 			TIM2_R->SR.BIT.CC4OF = FALSE;
@@ -1120,40 +1110,32 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 		switch (Copy_enmChannel)
 		{
 		case TIM_CHANNEL1:
-			while (FALSE == TIM3_R->SR.BIT.CC1IF)
-				;
-			while (TRUE == TIM3_R->SR.BIT.CC1OF)
-				;
+			while (FALSE == TIM3_R->SR.BIT.CC1IF);
+			//while (TRUE == TIM3_R->SR.BIT.CC1OF);
 			LOC_u32CapturedValue = (u32)(TIM3_R->CCR1.BIT.CCR1);
 			TIM3_R->SR.BIT.CC1IF = FALSE;
 			TIM3_R->SR.BIT.CC1OF = FALSE;
 			break;
 
 		case TIM_CHANNEL2:
-			while (FALSE == TIM3_R->SR.BIT.CC2IF)
-				;
-			while (TRUE == TIM3_R->SR.BIT.CC2OF)
-				;
+			while (FALSE == TIM3_R->SR.BIT.CC2IF);
+			//while (TRUE == TIM3_R->SR.BIT.CC2OF);
 			LOC_u32CapturedValue = (u32)(TIM3_R->CCR2.BIT.CCR2);
 			TIM3_R->SR.BIT.CC2IF = FALSE;
 			TIM3_R->SR.BIT.CC2OF = FALSE;
 			break;
 
 		case TIM_CHANNEL3:
-			while (FALSE == TIM3_R->SR.BIT.CC3IF)
-				;
-			while (TRUE == TIM3_R->SR.BIT.CC3OF)
-				;
+			while (FALSE == TIM3_R->SR.BIT.CC3IF);
+			//while (TRUE == TIM3_R->SR.BIT.CC3OF);
 			LOC_u32CapturedValue = (u32)(TIM3_R->CCR3.BIT.CCR3);
 			TIM3_R->SR.BIT.CC3IF = FALSE;
 			TIM3_R->SR.BIT.CC3OF = FALSE;
 			break;
 
 		case TIM_CHANNEL4:
-			while (FALSE == TIM3_R->SR.BIT.CC4IF)
-				;
-			while (TRUE == TIM3_R->SR.BIT.CC4OF)
-				;
+			while (FALSE == TIM3_R->SR.BIT.CC4IF);
+			//while (TRUE == TIM3_R->SR.BIT.CC4OF);
 			LOC_u32CapturedValue = (u32)(TIM3_R->CCR4.BIT.CCR4);
 			TIM3_R->SR.BIT.CC4IF = FALSE;
 			TIM3_R->SR.BIT.CC4OF = FALSE;
@@ -1166,40 +1148,32 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 		switch (Copy_enmChannel)
 		{
 		case TIM_CHANNEL1:
-			while (FALSE == TIM4_R->SR.BIT.CC1IF)
-				;
-			while (TRUE == TIM4_R->SR.BIT.CC1OF)
-				;
+			while (FALSE == TIM4_R->SR.BIT.CC1IF);
+			//while (TRUE == TIM4_R->SR.BIT.CC1OF);
 			LOC_u32CapturedValue = (u32)(TIM4_R->CCR1.BIT.CCR1);
 			TIM4_R->SR.BIT.CC1IF = FALSE;
 			TIM4_R->SR.BIT.CC1OF = FALSE;
 			break;
 
 		case TIM_CHANNEL2:
-			while (FALSE == TIM4_R->SR.BIT.CC2IF)
-				;
-			while (TRUE == TIM4_R->SR.BIT.CC2OF)
-				;
+			while (FALSE == TIM4_R->SR.BIT.CC2IF);
+			//while (TRUE == TIM4_R->SR.BIT.CC2OF);
 			LOC_u32CapturedValue = (u32)(TIM4_R->CCR2.BIT.CCR2);
 			TIM4_R->SR.BIT.CC2IF = FALSE;
 			TIM4_R->SR.BIT.CC2OF = FALSE;
 			break;
 
 		case TIM_CHANNEL3:
-			while (FALSE == TIM4_R->SR.BIT.CC3IF)
-				;
-			while (TRUE == TIM4_R->SR.BIT.CC3OF)
-				;
+			while (FALSE == TIM4_R->SR.BIT.CC3IF);
+			//while (TRUE == TIM4_R->SR.BIT.CC3OF);
 			LOC_u32CapturedValue = (u32)(TIM4_R->CCR3.BIT.CCR3);
 			TIM4_R->SR.BIT.CC3IF = FALSE;
 			TIM4_R->SR.BIT.CC3OF = FALSE;
 			break;
 
 		case TIM_CHANNEL4:
-			while (FALSE == TIM4_R->SR.BIT.CC4IF)
-				;
-			while (TRUE == TIM4_R->SR.BIT.CC4OF)
-				;
+			while (FALSE == TIM4_R->SR.BIT.CC4IF);
+			//while (TRUE == TIM4_R->SR.BIT.CC4OF);
 			LOC_u32CapturedValue = (u32)(TIM4_R->CCR4.BIT.CCR4);
 			TIM4_R->SR.BIT.CC4IF = FALSE;
 			TIM4_R->SR.BIT.CC4OF = FALSE;
@@ -1228,20 +1202,16 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 			break;
 
 		case TIM_CHANNEL3:
-			while (FALSE == TIM5_R->SR.BIT.CC3IF)
-				;
-			while (TRUE == TIM5_R->SR.BIT.CC3OF)
-				;
+			while (FALSE == TIM5_R->SR.BIT.CC3IF);
+			//while (TRUE == TIM5_R->SR.BIT.CC3OF);
 			LOC_u32CapturedValue = (u32)(TIM5_R->CCR3.REGISTER);
 			TIM5_R->SR.BIT.CC3IF = FALSE;
 			TIM5_R->SR.BIT.CC3OF = FALSE;
 			break;
 
 		case TIM_CHANNEL4:
-			while (FALSE == TIM5_R->SR.BIT.CC4IF)
-				;
-			while (TRUE == TIM5_R->SR.BIT.CC4OF)
-				;
+			while (FALSE == TIM5_R->SR.BIT.CC4IF);
+			while (TRUE == TIM5_R->SR.BIT.CC4OF);
 			LOC_u32CapturedValue = (u32)(TIM5_R->CCR4.REGISTER);
 			TIM5_R->SR.BIT.CC4IF = FALSE;
 			TIM5_R->SR.BIT.CC4OF = FALSE;
@@ -1254,20 +1224,16 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 		switch (Copy_enmChannel)
 		{
 		case TIM_CHANNEL1:
-			while (FALSE == TIM9_R->SR.BIT.CC1IF)
-				;
-			while (TRUE == TIM9_R->SR.BIT.CC1OF)
-				;
+			while (FALSE == TIM9_R->SR.BIT.CC1IF);
+			while (TRUE == TIM9_R->SR.BIT.CC1OF);
 			LOC_u32CapturedValue = (u32)(TIM9_R->CCR1.BIT.CCR1);
 			TIM9_R->SR.BIT.CC1IF = FALSE;
 			TIM9_R->SR.BIT.CC1OF = FALSE;
 			break;
 
 		case TIM_CHANNEL2:
-			while (FALSE == TIM9_R->SR.BIT.CC2IF)
-				;
-			while (TRUE == TIM9_R->SR.BIT.CC2OF)
-				;
+			while (FALSE == TIM9_R->SR.BIT.CC2IF);
+			while (TRUE == TIM9_R->SR.BIT.CC2OF);
 			LOC_u32CapturedValue = (u32)(TIM9_R->CCR2.BIT.CCR2);
 			TIM9_R->SR.BIT.CC2IF = FALSE;
 			TIM9_R->SR.BIT.CC2OF = FALSE;
@@ -1294,10 +1260,8 @@ u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel)
 		switch (Copy_enmChannel)
 		{
 		case TIM_CHANNEL1:
-			while (FALSE == TIM11_R->SR.BIT.CC1IF)
-				;
-			while (TRUE == TIM11_R->SR.BIT.CC1OF)
-				;
+			while (FALSE == TIM11_R->SR.BIT.CC1IF);
+			while (TRUE == TIM11_R->SR.BIT.CC1OF);
 			LOC_u32CapturedValue = (u32)(TIM11_R->CCR1.BIT.CCR1);
 			TIM11_R->SR.BIT.CC1IF = FALSE;
 			TIM11_R->SR.BIT.CC1OF = FALSE;
@@ -1591,8 +1555,7 @@ void TIM_vidDelayms(TIM_x Copy_enmTIM_x, u16 Copy_u16ms)
 		TIM11_R->CR1.BIT.CEN = 1;
 		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
 		{
-			while (TIM11_R->SR.BIT.UIF == 0)
-				;
+			while (TIM11_R->SR.BIT.UIF == 0);
 			TIM11_R->SR.BIT.UIF = 0;
 		}
 		TIM11_R->CR1.BIT.CEN = 0;

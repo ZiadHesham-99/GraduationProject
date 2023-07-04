@@ -15,7 +15,7 @@
 #include "APP/DataAcquisition.h"
 
 static tstrRaspberryPiMsg LOC_strMsg;
-/*ana tareeeeeeeeeeeeeeeek */
+
 void DAQ_vidInit(void)
 {
     LOC_strMsg.s8GyroX = 0;
@@ -31,6 +31,7 @@ void DAQ_vidInit(void)
 void DAQ_vidCollectData(void)
 {
     f32 af32MPU[6] ={0};
+	//f32 af32MPU[6] ={-0.456, 0.789, -1.251, -852, -97, 2};
     u16	u16Temperature = 0;
 
     SEN_vidUpdateSensorsData();
@@ -50,12 +51,6 @@ void DAQ_vidCollectData(void)
     LOC_strMsg.s16AccelY = ((s16)(af32MPU[1]*1000));
     LOC_strMsg.s16AccelZ = ((s16)(af32MPU[2]*1000));
 
-    if(LOW == SEN_enmGetPushButton())
-    {
+    COM_vidSendToRaspBerryPi(LOC_strMsg, SENSORS_COMM);
 
-		COM_vidSendToRaspBerryPi(LOC_strMsg);
-    }
-    else
-    {
-    }
 }

@@ -1,0 +1,32 @@
+/*
+ * Actuation.h
+ *
+ *  Created on: Jul 4, 2023
+ *      Author: Hosam
+ */
+
+#ifndef HAL_ACTUATION_H_
+#define HAL_ACTUATION_H_
+
+#include "LIB/STD_TYPES.h"
+#include "MCAL/GPIO_interface.h"
+#include "MCAL/TIMER_interface.h"
+
+
+
+typedef enum 
+{
+    LEFT_MOTOR = (u8)0,
+    RIGHT_MOTOR
+}tenuMotors;
+
+typedef enum 
+{
+    FORWARD_ACT = (u8)0,
+    BACKWARD_ACT
+}tenuMotorDir;
+
+void ACT_vidActuateMotor(tenuMotors Copy_enuMotor,tenuMotorDir Copy_enuDirection, u8 Copy_u8SpeedPercentage);
+
+
+#endif /* HAL_ACTUATION_H_ */

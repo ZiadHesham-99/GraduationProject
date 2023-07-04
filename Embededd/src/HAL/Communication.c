@@ -14,71 +14,163 @@
 
 #include "HAL/Communication.h"
 
-void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg)
+
+void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg, tenuMsgType Copy_enuMsgType)
 {
 
 	/*
 	 ************************************************************************************************
-                                    SENDING TO RASPBERRY PI FRAME
+	                                    SENDING TO RASPBERRY PI FRAME
 	 ************************************************************************************************
-                        !!SEND@MPU@G@+XXX@+XXX@+XXX@A@+XXXX@+XXXX@+XXXX@CO@+XX%@T@+XX@!!
 
-                                            64 BYTES
+	                       	   	   	   	   	SENSORS READING FRAME
+	                        !!SEND@MPU@G@+XXX@+XXX@+XXX@A@+XXXX@+XXXX@+XXXX@CO@+XX%@T@+XX@!!
+	                                            64 BYTES
+
+
+	                                         ENCODERS READING
+									!!SEND@ENC_R@+XXX@ENC_L@+XXX@!!
+												31 BYTES
 	 ************************************************************************************************
 	 */
-
-
 	u8 au8RaspberryPiMsg[64] = {0};
-	u8 au8String[]="!!SEND@MPU@G@";
-	u8 u8Counter;
-	for(u8Counter = 0; u8Counter < 13; u8Counter++)
+	u8 u8Counter = 13;
+
+	au8RaspberryPiMsg[0] = '!';
+	au8RaspberryPiMsg[1] = '!';
+	au8RaspberryPiMsg[2] = 'S';
+	au8RaspberryPiMsg[3] = 'E';
+	au8RaspberryPiMsg[4] = 'N';
+	au8RaspberryPiMsg[5] = 'D';
+	au8RaspberryPiMsg[6] = '@';
+
+	switch (Copy_enuMsgType)
 	{
-		au8RaspberryPiMsg[u8Counter] =  au8String[u8Counter];
+	case SENSORS_COMM:
+
+		au8RaspberryPiMsg[7] = 'M';
+		au8RaspberryPiMsg[8] = 'P';
+		au8RaspberryPiMsg[9] = 'U';
+		au8RaspberryPiMsg[10] = '@';
+		au8RaspberryPiMsg[11] = 'G';
+		au8RaspberryPiMsg[12] = '@';
+
+		vidToString(((s32)(Copy_strMsg.s8GyroX)), 3, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[17] = '@';
+		u8Counter = 18;
+		vidToString(((s32)(Copy_strMsg.s8GyroY)), 3, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[22] = '@';
+		u8Counter = 23;
+		vidToString(((s32)(Copy_strMsg.s8GyroZ)), 3, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[27] = '@';
+		au8RaspberryPiMsg[28] = 'A';
+		au8RaspberryPiMsg[29] = '@';
+		u8Counter = 30;
+		vidToString(((s32)(Copy_strMsg.s16AccelX)), 4, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[35] = '@';
+		u8Counter = 36;
+		vidToString(((s32)(Copy_strMsg.s16AccelY)), 4, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[41] = '@';
+		u8Counter = 42;
+		vidToString(((s32)(Copy_strMsg.s16AccelZ)), 4, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[47] = '@';
+		au8RaspberryPiMsg[48] = 'C';
+		au8RaspberryPiMsg[49] = 'O';
+		au8RaspberryPiMsg[50] = '@';
+		u8Counter = 51;
+		vidToString(((s32)(Copy_strMsg.u8GasPercentage)), 2, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[54] = '%';
+		au8RaspberryPiMsg[55] = '@';
+		au8RaspberryPiMsg[56] = 'T';
+		au8RaspberryPiMsg[57] = '@';
+		u8Counter = 58;
+		vidToString(((s32)(Copy_strMsg.u8Temperatue)), 2, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[61] = '@';
+		au8RaspberryPiMsg[62] = '!';
+		au8RaspberryPiMsg[63] = '!';
+
+		I2C_vidSlaveTX(I2C_2, au8RaspberryPiMsg, 64);
+
+		break;
+	case MOTION_COMM:
+
+		au8RaspberryPiMsg[7] = 'E';
+		au8RaspberryPiMsg[8] = 'N';
+		au8RaspberryPiMsg[9] = 'C';
+		au8RaspberryPiMsg[10] = '_';
+		au8RaspberryPiMsg[11] = 'L';
+		au8RaspberryPiMsg[12] = '@';
+
+		vidToString(((s32)(Copy_strMsg.s8LeftMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[17] = '@';
+		au8RaspberryPiMsg[18] = 'E';
+		au8RaspberryPiMsg[19] = 'N';
+		au8RaspberryPiMsg[20] = 'C';
+		au8RaspberryPiMsg[21] = '_';
+		au8RaspberryPiMsg[22] = 'R';
+		au8RaspberryPiMsg[23] = '@';
+		u8Counter = 24;
+		vidToString(((s32)(Copy_strMsg.s8RightMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
+		au8RaspberryPiMsg[28] = '@';
+		au8RaspberryPiMsg[29] = '!';
+		au8RaspberryPiMsg[30] = '!';
+
+		I2C_vidSlaveTX(I2C_2, au8RaspberryPiMsg, 31);
+		break;
 	}
-	u8Counter = 13;
-	vidToString(((s32)(Copy_strMsg.s8GyroX)), 3, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[17] = '@';
-	u8Counter = 18;
-	vidToString(((s32)(Copy_strMsg.s8GyroY)), 3, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[22] = '@';
-	u8Counter = 23;
-	vidToString(((s32)(Copy_strMsg.s8GyroZ)), 3, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[27] = '@';
-	au8RaspberryPiMsg[28] = 'A';
-	au8RaspberryPiMsg[29] = '@';
-	u8Counter = 30;
-	vidToString(((s32)(Copy_strMsg.s16AccelX)), 4, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[35] = '@';
-	u8Counter = 36;
-	vidToString(((s32)(Copy_strMsg.s16AccelY)), 4, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[41] = '@';
-	u8Counter = 42;
-	vidToString(((s32)(Copy_strMsg.s16AccelZ)), 4, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[47] = '@';
-	au8RaspberryPiMsg[48] = 'C';
-	au8RaspberryPiMsg[49] = 'O';
-	au8RaspberryPiMsg[50] = '@';
-	u8Counter = 51;
-	vidToString(((s32)(Copy_strMsg.u8GasPercentage)), 2, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[54] = '%';
-	au8RaspberryPiMsg[55] = '@';
-	au8RaspberryPiMsg[56] = 'T';
-	au8RaspberryPiMsg[57] = '@';
-	u8Counter = 58;
-	vidToString(((s32)(Copy_strMsg.u8Temperatue)), 2, (au8RaspberryPiMsg+u8Counter));
-	au8RaspberryPiMsg[61] = '@';
-	au8RaspberryPiMsg[62] = '!';
-	au8RaspberryPiMsg[63] = '!';
 
-	/*for(u8Counter = 0; u8Counter < 58; u8Counter++)
-    {
-        UART_vidTransmitChar(au8RaspberryPiMsg[u8Counter]);
-    }
+}
 
-    UART_vidTransmitChar('\n');
-    UART_vidTransmitChar('\n');
-    UART_vidTransmitChar('\n');*/
-	I2C_vidSlaveTX(I2C_2, au8RaspberryPiMsg, 64);
+void COM_vidRecFromRaspBerryPi(tstrStmMsg *Copy_pstrMsg)
+{
+	/*
+	 ************************************************************************************************
+	                                RECEIVING FROM RASPBERRY PI FRAME
+	 ************************************************************************************************
+	                        		!!REC@M_R@+XXX@M_L@+XXX@!!
+												26 BYTES
+	 ************************************************************************************************
+	 */
+	u8 au8StmMsg[26] = {0};
+	u8 au8Number[4] = {0};
+	u8 u8Counter;
+
+	I2C_vidSlaveRX(I2C_2, au8StmMsg, 26);
+
+	if((au8StmMsg[0] == '!') && (au8StmMsg[25] == '!'))
+	{
+		if(au8StmMsg[8] == 'R')
+		{
+			for(u8Counter = 0; u8Counter < 4; u8Counter++)
+			{
+				au8Number[u8Counter] = au8StmMsg[10 + u8Counter];
+			}
+			Copy_pstrMsg->s8RightMotorSpeed = ((s8)s32ToInteger(au8Number, 4));
+		}
+		else
+		{
+			Copy_pstrMsg->s8RightMotorSpeed = 0;
+		}
+
+		if(au8StmMsg[17] == 'L')
+		{
+			for(u8Counter = 0; u8Counter < 4; u8Counter++)
+			{
+				au8Number[u8Counter] = au8StmMsg[19 + u8Counter];
+			}
+			Copy_pstrMsg->s8LeftMotorSpeed = ((s8)s32ToInteger(au8Number, 4));
+		}
+		else
+		{
+			Copy_pstrMsg->s8LeftMotorSpeed = 0;
+		}
+	}
+	else
+	{
+		Copy_pstrMsg->s8LeftMotorSpeed = 0;
+		Copy_pstrMsg->s8RightMotorSpeed = 0;
+	}
+
 }
 
 static void vidToString(s32 Copy_s32Num, u8 Copy_u8DigitsNum, u8 * Copy_pu8Bffr)
