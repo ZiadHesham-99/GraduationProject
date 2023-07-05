@@ -43,7 +43,6 @@ void DAQ_vidCollectData(void)
     LOC_strMsg.u8Temperatue = (u8)u16Temperature;
     SEN_vidGetGyroAccel(af32MPU);
     
-    //LOC_strMsg.u8GasPercentage = 45;
     LOC_strMsg.s8GyroX = ((s8)af32MPU[3]);
     LOC_strMsg.s8GyroY = ((s8)af32MPU[4]);
     LOC_strMsg.s8GyroZ = ((s8)af32MPU[5]);

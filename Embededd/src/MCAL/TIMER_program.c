@@ -1540,8 +1540,7 @@ void TIM_vidDelayms(TIM_x Copy_enmTIM_x, u16 Copy_u16ms)
 		TIM10_R->CR1.BIT.CEN = 1;
 		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
 		{
-			while (TIM10_R->SR.BIT.UIF == 0)
-				;
+			while (TIM10_R->SR.BIT.UIF == 0);
 			TIM10_R->SR.BIT.UIF = 0;
 		}
 		TIM10_R->CR1.BIT.CEN = 0;
@@ -1709,6 +1708,526 @@ void TIM_vidDelaySec(TIM_x Copy_enmTIM_x, u16 Copy_u16Sec)
 	default:
 		break;
 	} // end of switch
+}
+
+u32 TIM_u32GetPlusesCapturedDelayus(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16us)
+{
+	u16 LOC_u16Counter;
+	u16 LOC_u16PSC;
+	u32 LOC_u32ARR;
+	f64 LOC_f64TIMxCLK;
+
+    u32 LOC_u32PlusesCounter = 0;
+
+	for (LOC_u16Counter = 0; LOC_u16Counter < NUM_OF_TIM_USED; LOC_u16Counter++)
+	{
+		if (Copy_enmTIM_x == GLOB_aStrTIM[LOC_u16Counter].enmTIM_x)
+		{
+			LOC_u16PSC = GLOB_aStrTIM[LOC_u16Counter].u16Prescaler;
+			LOC_u16PSC++;
+			break;
+		}
+	}
+	LOC_f64TIMxCLK = ((f64)TIM_CLK_IN_MHZ) / ((f64)LOC_u16PSC);
+	LOC_u32ARR = (u32)(LOC_f64TIMxCLK);
+	switch (Copy_enmTIM_x)
+	{
+	case TIM_1:
+	{
+		TIM1_R->CNT.REGISTER = 0;
+
+		TIM1_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM1_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM1_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM1_R->SR.BIT.UIF = 0;
+		}
+		TIM1_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_2:
+	{
+		TIM2_R->CNT.REGISTER = 0;
+
+		TIM2_R->ARR.REGISTER = LOC_u32ARR;
+		TIM2_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM2_R->SR.BIT.UIF == 0)
+            {
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM2_R->SR.BIT.UIF = 0;
+		}
+		TIM2_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_3:
+	{
+		TIM3_R->CNT.REGISTER = 0;
+
+		TIM3_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM3_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM3_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM3_R->SR.BIT.UIF = 0;
+		}
+		TIM3_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_4:
+	{
+		TIM4_R->CNT.REGISTER = 0;
+
+		TIM4_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM4_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM4_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM4_R->SR.BIT.UIF = 0;
+		}
+		TIM4_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_5:
+	{
+		TIM5_R->CNT.REGISTER = 0;
+
+		TIM5_R->ARR.REGISTER = LOC_u32ARR;
+		TIM5_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM5_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM5_R->SR.BIT.UIF = 0;
+		}
+		TIM5_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_9:
+	{
+		TIM9_R->CNT.REGISTER = 0;
+
+		TIM9_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM9_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM9_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM9_R->SR.BIT.UIF = 0;
+		}
+		TIM9_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_10:
+	{
+		TIM10_R->CNT.REGISTER = 0;
+
+		TIM10_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM10_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM10_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM10_R->SR.BIT.UIF = 0;
+		}
+		TIM10_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_11:
+	{
+		TIM11_R->CNT.REGISTER = 0;
+
+		TIM11_R->ARR.BIT.ARR = LOC_u32ARR;
+		TIM11_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16us; LOC_u16Counter++)
+		{
+			while (TIM11_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM11_R->SR.BIT.UIF = 0;
+		}
+		TIM11_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	default:
+		break;
+	} // end of switch
+    return LOC_u32PlusesCounter;
+}
+
+u32 TIM_u32GetPlusesCapturedDelayms(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16ms)
+{
+	u16 LOC_u16Counter;
+	u16 LOC_u16PSC;
+	u32 LOC_u32ARR;
+	f64 LOC_f64TIMxCLK;
+
+    u32 LOC_u32PlusesCounter;
+
+	for (LOC_u16Counter = 0; LOC_u16Counter < NUM_OF_TIM_USED; LOC_u16Counter++)
+	{
+		if (Copy_enmTIM_x == GLOB_aStrTIM[LOC_u16Counter].enmTIM_x)
+		{
+			LOC_u16PSC = GLOB_aStrTIM[LOC_u16Counter].u16Prescaler;
+			LOC_u16PSC++;
+			break;
+		}
+	}
+
+	LOC_f64TIMxCLK = ((f64)TIM_CLK_IN_MHZ) / ((f64)LOC_u16PSC);
+	LOC_u32ARR = (u32)(LOC_f64TIMxCLK * 1000);
+
+	switch (Copy_enmTIM_x)
+	{
+	case TIM_1:
+	{
+		TIM1_R->CNT.REGISTER = 0;
+
+		TIM1_R->ARR.REGISTER = LOC_u32ARR;
+		TIM1_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM1_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM1_R->SR.BIT.UIF = 0;
+		}
+		TIM1_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_2:
+	{
+		TIM2_R->CNT.REGISTER = 0;
+
+		TIM2_R->ARR.REGISTER = LOC_u32ARR;
+		TIM2_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM2_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM2_R->SR.BIT.UIF = 0;
+		}
+		TIM2_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_3:
+	{
+		TIM3_R->CNT.REGISTER = 0;
+
+		TIM3_R->ARR.REGISTER = LOC_u32ARR;
+		TIM3_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM3_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM3_R->SR.BIT.UIF = 0;
+		}
+		TIM3_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_4:
+	{
+		TIM4_R->CNT.REGISTER = 0;
+
+		TIM4_R->ARR.REGISTER = LOC_u32ARR;
+		TIM4_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM4_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM4_R->SR.BIT.UIF = 0;
+		}
+		TIM4_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_5:
+	{
+		TIM5_R->CNT.REGISTER = 0;
+
+		TIM5_R->ARR.REGISTER = LOC_u32ARR;
+		TIM5_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM5_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM5_R->SR.BIT.UIF = 0;
+		}
+		TIM5_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_9:
+	{
+		TIM9_R->CNT.REGISTER = 0;
+
+		TIM9_R->ARR.REGISTER = LOC_u32ARR;
+		TIM9_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM9_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM9_R->SR.BIT.UIF = 0;
+		}
+		TIM9_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_10:
+	{
+		TIM10_R->CNT.REGISTER = 0;
+
+		TIM10_R->ARR.REGISTER = LOC_u32ARR;
+		TIM10_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM10_R->SR.BIT.UIF == 0)
+            {
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM10_R->SR.BIT.UIF = 0;
+		}
+		TIM10_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_11:
+	{
+		TIM11_R->CNT.REGISTER = 0;
+
+		TIM11_R->ARR.REGISTER = LOC_u32ARR;
+		TIM11_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16ms; LOC_u16Counter++)
+		{
+			while (TIM11_R->SR.BIT.UIF == 0)
+            {
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM11_R->SR.BIT.UIF = 0;
+		}
+		TIM11_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	default:
+		break;
+	} // end of switch
+    return LOC_u32PlusesCounter;
+}
+
+u32 TIM_u32GetPlusesCapturedDelaySec(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16Sec)
+{
+	u16 LOC_u16Counter;
+	u16 LOC_u16PSC;
+	u32 LOC_u32ARR;
+	f64 LOC_f64TIMxCLK;
+
+    u32 LOC_u32PlusesCounter;
+
+	for (LOC_u16Counter = 0; LOC_u16Counter < NUM_OF_TIM_USED; LOC_u16Counter++)
+	{
+		if (Copy_enmTIM_x == GLOB_aStrTIM[LOC_u16Counter].enmTIM_x)
+		{
+			LOC_u16PSC = GLOB_aStrTIM[LOC_u16Counter].u16Prescaler;
+			LOC_u16PSC++;
+			break;
+		}
+	}
+
+	LOC_f64TIMxCLK = ((f64)TIM_CLK_IN_MHZ) / ((f64)LOC_u16PSC);
+	LOC_u32ARR = (u32)(LOC_f64TIMxCLK * 1000000);
+	switch (Copy_enmTIM_x)
+	{
+	case TIM_1:
+	{
+		TIM1_R->CNT.REGISTER = 0;
+
+		TIM1_R->ARR.REGISTER = LOC_u32ARR;
+		TIM1_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM1_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM1_R->SR.BIT.UIF = 0;
+		}
+		TIM1_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_2:
+	{
+		TIM2_R->CNT.REGISTER = 0;
+
+		TIM2_R->ARR.REGISTER = LOC_u32ARR;
+		TIM2_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM2_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM2_R->SR.BIT.UIF = 0;
+		}
+		TIM2_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_3:
+	{
+		TIM3_R->CNT.REGISTER = 0;
+
+		TIM3_R->ARR.BIT.ARR = LOC_u32ARR;
+		// TIM3_R->ARR.REGISTER	= LOC_u32ARR;
+		TIM3_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM3_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM3_R->SR.BIT.UIF = 0;
+		}
+		TIM3_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_4:
+	{
+		TIM4_R->CNT.REGISTER = 0;
+
+		TIM4_R->ARR.REGISTER = LOC_u32ARR;
+		TIM4_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM4_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM4_R->SR.BIT.UIF = 0;
+		}
+		TIM4_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_5:
+	{
+		TIM5_R->CNT.REGISTER = 0;
+
+		TIM5_R->ARR.REGISTER = LOC_u32ARR;
+		TIM5_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM5_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM5_R->SR.BIT.UIF = 0;
+		}
+		TIM5_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_9:
+	{
+		TIM9_R->CNT.REGISTER = 0;
+
+		TIM9_R->ARR.REGISTER = LOC_u32ARR;
+		TIM9_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM9_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM9_R->SR.BIT.UIF = 0;
+		}
+		TIM9_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_10:
+	{
+		TIM10_R->CNT.REGISTER = 0;
+
+		TIM10_R->ARR.REGISTER = LOC_u32ARR;
+		TIM10_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM10_R->SR.BIT.UIF == 0)
+			{
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM10_R->SR.BIT.UIF = 0;
+		}
+		TIM10_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	case TIM_11:
+	{
+		TIM11_R->CNT.REGISTER = 0;
+
+		TIM11_R->ARR.REGISTER = LOC_u32ARR;
+		TIM11_R->CR1.BIT.CEN = 1;
+		for (LOC_u16Counter = 0; LOC_u16Counter < Copy_u16Sec; LOC_u16Counter++)
+		{
+			while (TIM11_R->SR.BIT.UIF == 0)
+            {
+                TIM_u32ICGetCapturedValue(Copy_enmTIM_x, Copy_enmChannel);
+                LOC_u32PlusesCounter++;
+            }
+			TIM11_R->SR.BIT.UIF = 0;
+		}
+		TIM11_R->CR1.BIT.CEN = 0;
+	}
+	break;
+	default:
+		break;
+	} // end of switch
+    return LOC_u32PlusesCounter;
 }
 
 void TIM_vidPWMStart(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, f32 Copy_f32SignalFreqInHz, PWM_DUTY_CYCLE_PER Copy_enmDutyCyclePer)

@@ -159,6 +159,10 @@ void TIM_vidICStart(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel);
 void TIM_vidICStop(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel);
 u32 TIM_u32ICGetCapturedValue(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel);
 
+u32 TIM_u32GetPlusesCapturedDelayus(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16us);
+u32 TIM_u32GetPlusesCapturedDelayms(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16ms);
+u32 TIM_u32GetPlusesCapturedDelaySec(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, u16 Copy_u16Sec);
+
 void TIM_vidPWMStart(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel, f32 Copy_f32SignalFreqInHz, PWM_DUTY_CYCLE_PER Copy_enmDutyCyclePer);
 void TIM_vidPWMStop(TIM_x Copy_enmTIM_x, TIM_CHANNEL Copy_enmChannel);
 

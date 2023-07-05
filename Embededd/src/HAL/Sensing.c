@@ -68,22 +68,14 @@ void SEN_vidUpdateSensorsData(void)
 
 void SEN_vidUpdateEncoders(void)
 {
-	u32 u32Raising1 = 0; 
-	u32 u32Raising2 = 0;
-	u32 u32TotalTick = 0;
-	f64 f64Temp = 0.0;
+	u32 u32PlusesLeft = 0;
+	u32 u32PlusesRight = 0;
 
-	u32Raising1 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL1);
-	u32Raising2 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL1);
-	u32TotalTick = u32Raising2 - u32Raising1;
-	f64Temp = (0.0000191733 * u32TotalTick * u32TotalTick) - (0.309905 * u32TotalTick) + 1174.13;
-	LOC_u32LeftMotorRPM = (u32)f64Temp;
+	u32PlusesLeft = TIM_u32GetPlusesCapturedDelayms(TIM_3, TIM_CHANNEL1, 10);
+	u32PlusesRight = TIM_u32GetPlusesCapturedDelayms(TIM_3, TIM_CHANNEL2, 10);
 
-	u32Raising1 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL2);
-	u32Raising2 = TIM_u32ICGetCapturedValue(TIM_3, TIM_CHANNEL2);
-	u32TotalTick = u32Raising2 - u32Raising1;
-	f64Temp = (0.0000191733 * u32TotalTick * u32TotalTick) - (0.309905 * u32TotalTick) + 1174.13;
-	LOC_u32RightMotorRPM = (u32)f64Temp;
+	LOC_u32LeftMotorRPM = (u32PlusesLeft * 30 * 100)/531;
+	LOC_u32RightMotorRPM = (u32PlusesRight * 30 * 100)/531;;
 }
 
 u32 SEN_u8GetLeftMotorRPM(void)

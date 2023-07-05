@@ -44,10 +44,14 @@ void main(void)
 	DAQ_vidInit();
 	RMO_vidInit();
 
+	//volatile u8 counter = 25, counter1[9] = {55,66,99,77,88,11,22,33,44};
 	while(1)
 	{
 		DAQ_vidCollectData();
 		RMO_vidMotionHandler();
+		//I2C_vidMasterRX(I2C_2, 0x16, counter1, 9);
+		//counter = 0;
+
 	}
 }
 

@@ -29,6 +29,7 @@ void RMO_vidInit(void)
 void RMO_vidMotionHandler(void)
 {
 	tenuMotorDir enuLeftMotorDir, enuRightMotorDir;
+
 	COM_vidRecFromRaspBerryPi(&LOC_strStmMsg);
 
 	if ( LOC_strStmMsg.s8LeftMotorSpeed < 0)
