@@ -13,15 +13,21 @@
 #include "MCAL/I2C_interface.h"
 #include "MCAL/UART_interface.h"
 #include "MCAL/TIMER_interface.h"
+#include "MCAL/SYSTICK_interface.h"
+#include "MCAL/NVIC_interface.h"
 
 #include "HAL/Sensing.h"
+#include "HAL/Actuation.h"
 
 #include "APP/DataAcquisition.h"
 #include "APP/RobotMotion.h"
 
+#include "OS/OS_interface.h"
+
 void main(void)
 {
 
+	/* *********************** MCAL LAYER INITIALIZATION *********************** */
 	RCC_voidInit();
 
 	RCC_voidEnablePeripheralClock(ADC1);
@@ -38,20 +44,29 @@ void main(void)
 
 	TIM_vidInit();
 	I2C_vidInit();
+	SYSTICK_vidInit();
+	/* ************************************************************************* */
 
+
+
+	/* *********************** HAL LAYER INITIALIZATION ************************ */
 	SEN_vidInit();
+	/* ************************************************************************* */
 
+
+	/* *********************** APP LAYER INITIALIZATION ************************ */
 	DAQ_vidInit();
 	RMO_vidInit();
+	/* ************************************************************************* */
 
-	//volatile u8 counter = 25, counter1[9] = {55,66,99,77,88,11,22,33,44};
+
+	/* *********************** OS LAYER INITIALIZATION ************************* */
+	OS_vidInit();
+	/* ************************************************************************* */
+
 	while(1)
 	{
-		DAQ_vidCollectData();
-		RMO_vidMotionHandler();
-		//I2C_vidMasterRX(I2C_2, 0x16, counter1, 9);
-		//counter = 0;
-
+		OS_vidScheduler();
 	}
 }
 

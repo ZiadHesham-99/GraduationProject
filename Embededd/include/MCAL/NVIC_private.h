@@ -10,7 +10,8 @@
 
 #include "MCAL/NVIC_interface.h"
 
-typedef struct{
+typedef struct
+{
 	u32 ISER[8];
 	u32	RESERVED_0[24];
 	u32	ICER[8];

@@ -14,7 +14,8 @@
 #include "MCAL/NVIC_config.h"
 #include "MCAL/NVIC_private.h"
 
-typedef enum{
+typedef enum
+{
 	XXXX = 0xFFFFF8FF,
 	XXXY = 0xFFFFFCFF,
 	XXYY,
@@ -22,7 +23,9 @@ typedef enum{
 	YYYY
 }GROUP_SUB_PRIORITY_MODE;
 
-typedef enum{
+typedef enum
+{
+	SYSTICK_INTR	= (s8)-1,
 	WWDG_INTR 		= (u8)0,
 	EXTI16_INTR		= (u8)1,
 	PVD_INTR		= (u8)1,
@@ -86,12 +89,12 @@ typedef enum{
 	SPI4_INTR			= (u8)84,
 }STM_PERIPHERAL;
 
-void NVIC_voidGroupSubPriority(void);
-void NVIC_voidSetPrioritySoftware(STM_PERIPHERAL Copy_enumPeripheralName, u8 Copy_u8Priority);
-void NVIC_voidEnableInterrupt(STM_PERIPHERAL Copy_enumPeripheralName);
-void NVIC_voidDisableInterrupt(STM_PERIPHERAL Copy_enumPeripheralName);
-void NVIC_voidSetPendingFlag(STM_PERIPHERAL Copy_enumPeripheralName);
-void NVIC_voidClearPendingFlag(STM_PERIPHERAL Copy_enumPeripheralName);
-u8	 NVIC_u8GetActiveFlag(STM_PERIPHERAL Copy_enumPeripheralName);
+void NVIC_vidGroupSubPriority(void);
+void NVIC_vidSetPrioritySoftware(STM_PERIPHERAL Copy_enuPeripheralName, u8 Copy_u8Priority);
+void NVIC_vidEnableInterrupt(STM_PERIPHERAL Copy_enuPeripheralName);
+void NVIC_vidDisableInterrupt(STM_PERIPHERAL Copy_enuPeripheralName);
+void NVIC_vidSetPendingFlag(STM_PERIPHERAL Copy_enuPeripheralName);
+void NVIC_vidClearPendingFlag(STM_PERIPHERAL Copy_enuPeripheralName);
+u8	 NVIC_u8GetActiveFlag(STM_PERIPHERAL Copy_enuPeripheralName);
 
 #endif

@@ -13,11 +13,11 @@
  * AHB
  * AHB_DIVIDED_BY_8
  */
-#define SYSTICK_CLK_SELECTION	AHB
+#define SYSTICK_CLK_SELECTION	AHB_DIVIDED_BY_8
 
 /*
  * FREQ. OF SYSTICK CLK IN MHz
  */
-#define AHB_CLK_IN_MHZ			25
+#define AHB_CLK_IN_MHZ			16
 
 #endif
