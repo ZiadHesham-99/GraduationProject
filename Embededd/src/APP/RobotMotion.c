@@ -51,6 +51,8 @@ void RMO_vidMotionHandler(void)
 		enuRightMotorDir = FORWARD_ACT;
 	}
 
+
+	ACT_vidActuateValve(LOC_strStmMsg.u8Valve);
 	ACT_vidActuateMotor(LEFT_MOTOR, enuLeftMotorDir, LOC_strStmMsg.s8LeftMotorSpeed);
 	ACT_vidActuateMotor(RIGHT_MOTOR, enuRightMotorDir, LOC_strStmMsg.s8RightMotorSpeed);
 	

@@ -35,7 +35,7 @@ typedef struct
 {
 	s8 s8LeftMotorSpeed;
 	s8 s8RightMotorSpeed;
-
+	u8 u8Valve;
 }tstrStmMsg;
 
 void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg, tenuMsgType Copy_enuMsgType);
