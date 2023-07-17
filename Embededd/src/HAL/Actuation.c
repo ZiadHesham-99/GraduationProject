@@ -30,7 +30,7 @@ void ACT_vidActuateMotor(tenuMotors Copy_enuMotor, tenuMotorDir Copy_enuDirectio
             break;
         
         case BACKWARD_ACT:
-            GPIO_voidSetPinValue(PORT_A, PIN4, LOW);
+             GPIO_voidSetPinValue(PORT_A, PIN4, LOW);
             break;
         }
         break;
