@@ -25,3 +25,14 @@ In addition to its active firefighting applications, the fire inspection rover p
 
 ![GraduationProjectBlockDiagram drawio_1](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/11c3c6da-1555-40e4-a99b-cb248c0f6c96)
 
+## Thesis
+
+For a more in-depth understanding of the Fire Inspection Rover project, you can refer to the full thesis document available [here](https://drive.google.com/file/d/1LUHdgQpUhUH1edA3vPyPQIy_viVG7S9u/view?usp=sharing).
+
+## Project Demo
+
+Check out the project demo showcasing the Fire Inspection Rover in action! You can find the demo video [here](https://drive.google.com/drive/folders/1v-ob2CQ__3YuEuZe0LKJUeyRTrOeIBGD?usp=sharing).
+
+Feel free to explore the project and experiment with the demo to get a hands-on experience of the innovative firefighting technology.
+
+**Note:** Each subsystem is explained in-depth in its corresponding folder's README in the repository. Please navigate to the relevant folders for detailed information about the Embedded System, ROS and SLAM, and Unity subsystems.
