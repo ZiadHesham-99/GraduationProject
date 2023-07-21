@@ -26,16 +26,16 @@ typedef struct
 	s16 s16AccelZ;
 	u16 u8Temperatue;
 
-	s8 s8LeftMotorRPM;
-	s8 s8RightMotorRPM;
+	s16 s16LeftMotorRPM;
+	s16 s16RightMotorRPM;
 
 }tstrRaspberryPiMsg;
 
 typedef struct
 {
-	s8 s8LeftMotorSpeed;
-	s8 s8RightMotorSpeed;
-
+	s16 s16LeftMotorSpeed;
+	s16 s16RightMotorSpeed;
+	u8 u8Valve;
 }tstrStmMsg;
 
 void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg, tenuMsgType Copy_enuMsgType);

@@ -30,7 +30,7 @@ void ACT_vidActuateMotor(tenuMotors Copy_enuMotor, tenuMotorDir Copy_enuDirectio
             break;
         
         case BACKWARD_ACT:
-            GPIO_voidSetPinValue(PORT_A, PIN4, LOW);
+             GPIO_voidSetPinValue(PORT_A, PIN4, LOW);
             break;
         }
         break;
@@ -49,3 +49,20 @@ void ACT_vidActuateMotor(tenuMotors Copy_enuMotor, tenuMotorDir Copy_enuDirectio
     }
 }
 
+void ACT_vidActuateValve(tenuValveState Copy_enuValveState)
+{
+	switch(Copy_enuValveState)
+	{
+	case TRUE:
+
+		GPIO_voidSetPinValue(PORT_B, PIN0, HIGH);
+
+		break;
+
+	case FALSE:
+
+		GPIO_voidSetPinValue(PORT_B, PIN0, LOW);
+
+		break;
+	}
+}

@@ -26,7 +26,13 @@ typedef enum
     BACKWARD_ACT
 }tenuMotorDir;
 
-void ACT_vidActuateMotor(tenuMotors Copy_enuMotor,tenuMotorDir Copy_enuDirection, u8 Copy_u8SpeedPercentage);
+typedef enum
+{
+	VALVE_OPEN = (u8)0,
+	VALVE_CLOSE
+}tenuValveState;
 
+void ACT_vidActuateMotor(tenuMotors Copy_enuMotor,tenuMotorDir Copy_enuDirection, u8 Copy_u8SpeedPercentage);
+void ACT_vidActuateValve(tenuValveState Copy_enuValveState);
 
 #endif /* HAL_ACTUATION_H_ */

@@ -31,7 +31,6 @@ void DAQ_vidInit(void)
 void DAQ_vidCollectData(void)
 {
     f32 af32MPU[6] ={0};
-	//f32 af32MPU[6] ={-0.456, 0.789, -1.251, -852, -97, 2};
     u16	u16Temperature = 0;
 
     SEN_vidUpdateSensorsData();

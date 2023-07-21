@@ -1,14 +1,17 @@
 /*
  * OS_config.h
  *
- *  Created on: Sep 17, 2022
+ *  Created on: Jul 14, 2023
  *      Author: Hosam
  */
 
-#ifndef OS_CONFIG_H_
-#define OS_CONFIG_H_
+#ifndef OS_OS_CONFIG_H_
+#define OS_OS_CONFIG_H_
 
-#define TICK_TIME_IN_USEC	1000
-#define NUMBER_OF_TASKS		3
 
-#endif
+#define OS_TICK_MILLISECOND 	100
+
+#define OS_NUM_OF_TASKS			2
+
+
+#endif /* OS_OS_CONFIG_H_ */

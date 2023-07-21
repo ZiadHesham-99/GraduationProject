@@ -101,7 +101,7 @@ void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg, tenuMsgType Copy_e
 		au8RaspberryPiMsg[11] = 'L';
 		au8RaspberryPiMsg[12] = '@';
 
-		vidToString(((s32)(Copy_strMsg.s8LeftMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
+		vidToString(((s32)(Copy_strMsg.s16LeftMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
 		au8RaspberryPiMsg[17] = '@';
 		au8RaspberryPiMsg[18] = 'E';
 		au8RaspberryPiMsg[19] = 'N';
@@ -110,7 +110,7 @@ void COM_vidSendToRaspBerryPi(tstrRaspberryPiMsg Copy_strMsg, tenuMsgType Copy_e
 		au8RaspberryPiMsg[22] = 'R';
 		au8RaspberryPiMsg[23] = '@';
 		u8Counter = 24;
-		vidToString(((s32)(Copy_strMsg.s8RightMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
+		vidToString(((s32)(Copy_strMsg.s16RightMotorRPM)), 3, (au8RaspberryPiMsg+u8Counter));
 		au8RaspberryPiMsg[28] = '@';
 		au8RaspberryPiMsg[29] = '!';
 		au8RaspberryPiMsg[30] = '!';
@@ -127,17 +127,17 @@ void COM_vidRecFromRaspBerryPi(tstrStmMsg *Copy_pstrMsg)
 	 ************************************************************************************************
 	                                RECEIVING FROM RASPBERRY PI FRAME
 	 ************************************************************************************************
-	                        		!!REC@M_R@+XXX@M_L@+XXX@!!
-												26 BYTES
+	                        		!!REC@M_R@+XXX@M_L@+XXX@V@+X@!!
+												31 BYTES
 	 ************************************************************************************************
 	 */
-	u8 au8StmMsg[26] = {0};
+	u8 au8StmMsg[31] = {0};
 	u8 au8Number[4] = {0};
 	u8 u8Counter;
 
-	I2C_vidSlaveRX(I2C_2, au8StmMsg, 26);
+	I2C_vidSlaveRX(I2C_2, au8StmMsg, 31);
 
-	if((au8StmMsg[0] == '!') && (au8StmMsg[25] == '!'))
+	if((au8StmMsg[0] == '!') && (au8StmMsg[30] == '!'))
 	{
 		if(au8StmMsg[8] == 'R')
 		{
@@ -145,11 +145,11 @@ void COM_vidRecFromRaspBerryPi(tstrStmMsg *Copy_pstrMsg)
 			{
 				au8Number[u8Counter] = au8StmMsg[10 + u8Counter];
 			}
-			Copy_pstrMsg->s8RightMotorSpeed = ((s8)s32ToInteger(au8Number, 4));
+			Copy_pstrMsg->s16RightMotorSpeed = ((s16)s32ToInteger(au8Number, 4));
 		}
 		else
 		{
-			Copy_pstrMsg->s8RightMotorSpeed = 0;
+			Copy_pstrMsg->s16RightMotorSpeed = 0;
 		}
 
 		if(au8StmMsg[17] == 'L')
@@ -158,17 +158,32 @@ void COM_vidRecFromRaspBerryPi(tstrStmMsg *Copy_pstrMsg)
 			{
 				au8Number[u8Counter] = au8StmMsg[19 + u8Counter];
 			}
-			Copy_pstrMsg->s8LeftMotorSpeed = ((s8)s32ToInteger(au8Number, 4));
+			Copy_pstrMsg->s16LeftMotorSpeed = ((s16)s32ToInteger(au8Number, 4));
 		}
 		else
 		{
-			Copy_pstrMsg->s8LeftMotorSpeed = 0;
+			Copy_pstrMsg->s16LeftMotorSpeed = 0;
+		}
+
+		if(au8StmMsg[24] == 'V')
+		{
+			for(u8Counter = 0; u8Counter < 2; u8Counter++)
+			{
+				au8Number[u8Counter] = au8StmMsg[26 + u8Counter];
+			}
+			au8Number[0] = '+';
+			Copy_pstrMsg->u8Valve = ((u8)s32ToInteger(au8Number, 2));
+		}
+		else
+		{
+			Copy_pstrMsg->u8Valve = 0;
 		}
 	}
 	else
 	{
-		Copy_pstrMsg->s8LeftMotorSpeed = 0;
-		Copy_pstrMsg->s8RightMotorSpeed = 0;
+		Copy_pstrMsg->s16LeftMotorSpeed = 0;
+		Copy_pstrMsg->s16RightMotorSpeed = 0;
+		Copy_pstrMsg->u8Valve = 0;
 	}
 
 }

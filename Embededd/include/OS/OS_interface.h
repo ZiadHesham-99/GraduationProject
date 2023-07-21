@@ -1,34 +1,42 @@
 /*
  * OS_interface.h
  *
- *  Created on: Sep 17, 2022
+ *  Created on: Jul 14, 2023
  *      Author: Hosam
  */
 
-#ifndef OS_INTERFACE_H_
-#define OS_INTERFACE_H_
+#ifndef OS_OS_INTERFACE_H_
+#define OS_OS_INTERFACE_H_
 
-typedef enum{
-	DORMANT,
-	READY,
-	RUNNING,
-	WAITING,
-	SUSPEND
-}TASK_STATE;
+typedef enum
+{
+	OS_INIT = (u8)0,
+	OS_WAITING,
+	OS_EXECUTING
+}tenuOperatingSystemState;
 
-typedef struct{
-	void (*ptr)(void);
-	u8 	Priority;
-	u8	Task_ID;
-	u32 Periodicity;
-	u32 First_Delay;
-	TASK_STATE State;
-}TASK;
+typedef enum
+{
+	TASK_DORMANT = (u8)0,
+	TASK_READY,
+	TASK_RUNNING,
+	TASK_WAITING,
+	TASK_SUSPEND
+}tenuTaskState;
 
-void OS_voidTerminateTask(u16 Copy_u16TaskID);
-void OS_voidSuspendTask(u16 Copy_u16TaskID);
-void OS_voidResumeTask(u16 Copy_u16TaskID);
-void OS_voidCreateTask(TASK Copy_structTask);
+typedef struct
+{
+	tenuTaskState 	enuTaskState;
+	u8				u8Periodicity;
+	void (*pTaskFunction)(void);
+}tstrTask;
 
+void OS_vidInit(void);
+void OS_vidScheduler(void);
 
-#endif
+void led1(void);
+void led2(void);
+
+void OS_vidSystickISR(void);
+
+#endif /* OS_OS_INTERFACE_H_ */
