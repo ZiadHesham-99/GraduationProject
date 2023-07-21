@@ -23,6 +23,5 @@ In addition to its active firefighting applications, the fire inspection rover p
 
 ## System Diagram
 
-![System Diagram][GraduationProjectBlockDiagram drawio_1](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/ad63bf8b-967f-473a-b990-696f42467882)
-system_diagram_here)
+![GraduationProjectBlockDiagram drawio_1](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/11c3c6da-1555-40e4-a99b-cb248c0f6c96)
 
