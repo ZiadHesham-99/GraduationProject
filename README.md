@@ -11,8 +11,8 @@ The project's core objectives encompass multiple facets, including the enhanceme
 In addition to its active firefighting applications, the fire inspection rover plays a pivotal role in training and preparing firefighters for diverse fire situations. The integration of a sophisticated Unity simulator provides an immersive and realistic training environment, where firefighters can practice and refine their skills in tackling simulated fire scenarios and dynamic environments. This training not only enhances their proficiency but also fosters adaptability and readiness for unforeseen challenges.
 
 ![Flyer][Flyer1](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/04146aab-637b-40b6-83b9-b3c3feac74b0)
-k_to_image_here)
-![Flyer 2](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/4bf2e628-ea16-430f-86f8-a0fbf8597439)
+
+![Flyer][Flyer2](https://github.com/ZiadHesham-99/GraduationProject/assets/76854651/4bf2e628-ea16-430f-86f8-a0fbf8597439)
 
 
 ## Subsystems
