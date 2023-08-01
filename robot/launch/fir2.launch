@@ -1,0 +1,45 @@
+<launch>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+  </include>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find robot_control)/config/config.yaml" command="load"/>
+
+  <!-- Load URDF file -->
+  <param name="robot_description" command="cat $(find robot)/urdf/fire.urdf" />
+
+  <!-- Start joint state controller -->
+  <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="your_robot_name">
+    <param name="controller" value="joint_state_controller" />
+    <param name="joint_state_controller/type" value="joint_state_controller/JointStateController" />
+    <param name="joint_state_controller/publish_rate" value="50" />
+  </node>
+
+  <!-- Start effort controllers -->
+  <node name="left_wheel_effort_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="your_robot_name">
+    <param name="controller" value="left_wheel_effort_controller" />
+    <param name="left_wheel_effort_controller/type" value="effort_controllers/JointEffortController" />
+    <param name="left_wheel_effort_controller/joint" value="left_wheel_joint" />
+    <param name="left_wheel_effort_controller/pid/has_velocity_limits" value="false" />
+  </node>
+
+  <node name="right_wheel_effort_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="your_robot_name">
+    <param name="controller" value="right_wheel_effort_controller" />
+    <param name="right_wheel_effort_controller/type" value="effort_controllers/JointEffortController" />
+    <param name="right_wheel_effort_controller/joint" value="right_wheel_joint" />
+    <param name="right_wheel_effort_controller/pid/has_velocity_limits" value="false" />
+  </node>
+
+  <!-- Start robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false"
+        output="screen">
+    <param name="publish_frequency" value="50" />
+  </node>
+
+</launch>
+

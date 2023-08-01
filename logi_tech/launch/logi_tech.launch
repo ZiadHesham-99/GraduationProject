@@ -1,0 +1,5 @@
+<launch>
+    <node name="log_node" pkg="logi_tech" type="log_node.py" output="screen">
+        <param name="joystick_index" value="0" />
+    </node>
+</launch>

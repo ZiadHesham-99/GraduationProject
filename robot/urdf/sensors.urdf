@@ -1,0 +1,41 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="sensors">
+  <!-- Define the temp sensor link -->
+  <link name="temp_link">
+    <!-- Define the visual, collision, and inertial properties of the link -->
+    <!-- ... -->
+  </link>
+
+  <!-- Define the MQ7 sensor link -->
+  <link name="mq7_link">
+    <!-- Define the visual, collision, and inertial properties of the link -->
+    <!-- ... -->
+  </link>
+
+  <!-- Define the IMU link -->
+  <link name="imu_link">
+    <!-- Define the visual, collision, and inertial properties of the link -->
+    <!-- ... -->
+  </link>
+
+  <!-- Define the fixed frame (e.g., map) as the common reference frame -->
+  <link name="map"/>
+
+  <!-- Define the transforms between the sensor frames and the common reference frame -->
+  <joint name="temp_joint" type="fixed">
+    <origin xyz="1.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="map"/>
+    <child link="temp_link"/>
+  </joint>
+
+  <joint name="mq7_joint" type="fixed">
+    <origin xyz="0.0 1.0 0.0" rpy="0 0 0"/>
+    <parent link="map"/>
+    <child link="mq7_link"/>
+  </joint>
+
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.0 0.0 1.0" rpy="0 0 0"/>
+    <parent link="map"/>
+    <child link="imu_link"/>
+  </joint>
+</robot>
